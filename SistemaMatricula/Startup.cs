@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SistemaMatricula.Data;
+using SistemaMatricula.Services;
 
 namespace SistemaMatricula
 {
@@ -30,6 +31,8 @@ namespace SistemaMatricula
             services.AddDbContext<SistemaMatriculaContext>(options =>
  options.UseMySql(Configuration.GetConnectionString("SistemaMatriculaContext"), builder =>
 builder.MigrationsAssembly("SistemaMatricula")));
+
+            services.AddScoped<ProfessorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -176,3 +176,5 @@ C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcorea
 C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\bin\Debug\netcoreapp3.1\MySqlConnector.dll
 C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll
+C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcoreapp3.1\Razor\Views\Professores\Create.cshtml.g.cs
+C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcoreapp3.1\Razor\Views\Professores\Index.cshtml.g.cs
