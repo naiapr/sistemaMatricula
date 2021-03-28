@@ -20,14 +20,15 @@ namespace SistemaMatricula.Controllers
 
         public IActionResult Index()
         {
-            return View();
+           var list = _professorService.FindAll();
+            return View(list);
         }
 
-        /*public IActionResult Create()
+        public IActionResult Create()
         {
-            var list = _professorService.FindAll();
-            return View(list);
-        }*/
+            
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

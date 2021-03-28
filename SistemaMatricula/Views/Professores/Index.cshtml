@@ -1,4 +1,4 @@
-﻿@model SistemaMatricula.Models.Professor
+﻿@model IEnumerable<SistemaMatricula.Models.Professor>
 
 @{
     ViewData["Title"] = "Professores";
@@ -9,3 +9,32 @@
 <p>
     <a asp-action="Create" class="btn btn-default">Novo Cadastro</a>
 </p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="success">
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>

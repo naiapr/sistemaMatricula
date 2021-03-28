@@ -16,10 +16,10 @@ namespace SistemaMatricula.Services
             _context = context;
         }
 
-        /*public List<Professor> FindAll()
+        public List<Professor> FindAll()
         {
             return _context.Professor.ToList();
-        }*/
+        }
         public void AdicionarProfessor(Professor professor)
         {
             _context.Add(professor);
