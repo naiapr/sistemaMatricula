@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaMatricula.Models.Professor>
+﻿@model IEnumerable<SistemaMatricula.Models.ViewModel.ProfessorViewModel>
 
 @{
     ViewData["Title"] = "Professores";
@@ -13,26 +13,33 @@
 <table class="table table-striped table-hover">
     <thead>
         <tr class="success">
+
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.Professor.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeModalidade)
             </th>
             <th></th>
-        </tr>
+        </t
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhar</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeProfessor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeModalidade)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProfessorId">Editar</a>
+                <a asp-action="Details" asp-route-id="@item.ProfessorId">Detalhar</a>
+                <a asp-action="Delete" asp-route-id="@item.ProfessorId">Deletar</a>
+            </td>
+        </tr>
 
         }
     </tbody>

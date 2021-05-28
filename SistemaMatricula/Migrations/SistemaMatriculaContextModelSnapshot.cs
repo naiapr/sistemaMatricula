@@ -27,17 +27,51 @@ namespace SistemaMatricula.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("Cpf")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(14) CHARACTER SET utf8mb4")
+                        .HasMaxLength(14);
+
+                    b.Property<int>("ModalidadeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<float>("Peso")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ModalidadeId");
+
                     b.ToTable("Aluno");
+                });
+
+            modelBuilder.Entity("SistemaMatricula.Models.Estoque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<float>("Preco")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SetorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SetorId");
+
+                    b.ToTable("Estoque");
                 });
 
             modelBuilder.Entity("SistemaMatricula.Models.Modalidade", b =>
@@ -47,14 +81,11 @@ namespace SistemaMatricula.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int?>("ProfessorId")
-                        .HasColumnType("int");
+                        .IsRequired()
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProfessorId");
 
                     b.ToTable("Modalidade");
                 });
@@ -65,19 +96,60 @@ namespace SistemaMatricula.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("ModalidadeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .IsRequired()
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ModalidadeId");
 
                     b.ToTable("Professor");
                 });
 
-            modelBuilder.Entity("SistemaMatricula.Models.Modalidade", b =>
+            modelBuilder.Entity("SistemaMatricula.Models.Setor", b =>
                 {
-                    b.HasOne("SistemaMatricula.Models.Professor", "Professor")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Setor");
+                });
+
+            modelBuilder.Entity("SistemaMatricula.Models.Aluno", b =>
+                {
+                    b.HasOne("SistemaMatricula.Models.Modalidade", "Modalidade")
                         .WithMany()
-                        .HasForeignKey("ProfessorId");
+                        .HasForeignKey("ModalidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SistemaMatricula.Models.Estoque", b =>
+                {
+                    b.HasOne("SistemaMatricula.Models.Setor", "Setor")
+                        .WithMany()
+                        .HasForeignKey("SetorId");
+                });
+
+            modelBuilder.Entity("SistemaMatricula.Models.Professor", b =>
+                {
+                    b.HasOne("SistemaMatricula.Models.Modalidade", "Modalidade")
+                        .WithMany()
+                        .HasForeignKey("ModalidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

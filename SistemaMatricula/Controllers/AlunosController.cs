@@ -1,153 +1,143 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using SistemaMatricula.Models;
+using SistemaMatricula.Models.ViewModel;
+using SistemaMatricula.Services;
+using SistemaMatricula.Services.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using SistemaMatricula.Data;
-using SistemaMatricula.Models;
+
 
 namespace SistemaMatricula.Controllers
 {
-    public class AlunosController : Controller
+    public class AlunosController : Microsoft.AspNetCore.Mvc.Controller
     {
-        private readonly SistemaMatriculaContext _context;
+        private readonly AlunoService _alunoService;
+        private readonly ModalidadeService _modalidadeService;
+        private readonly UtilidadesService _utilidadesService;
 
-        public AlunosController(SistemaMatriculaContext context)
+        public AlunosController(AlunoService alunoService, ModalidadeService modalidadeService, UtilidadesService utilidadesService)
         {
-            _context = context;
+            _alunoService = alunoService;
+            _modalidadeService = modalidadeService;
+            _utilidadesService = utilidadesService;
         }
 
-        // GET: Alunos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Aluno.ToListAsync());
+            var list = _alunoService.FindAll();
+            return View(list);
         }
 
-        // GET: Alunos/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var aluno = await _context.Aluno
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (aluno == null)
-            {
-                return NotFound();
-            }
-
-            return View(aluno);
-        }
-
-        // GET: Alunos/Create
         public IActionResult Create()
         {
+            ViewBag.IDModalidade =  _modalidadeService.FindAll();
+            
             return View();
         }
-
-        // POST: Alunos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Cpf,Peso,Altura")] Aluno aluno)
+        public IActionResult Create(AlunoViewModel alunoViewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(aluno);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.IDModalidade = _modalidadeService.FindAll();
+                return View(alunoViewModel);
             }
-            return View(aluno);
+            _alunoService.AdicionarAluno(alunoViewModel);
+            return RedirectToAction(nameof(Index));
+
         }
 
-        // GET: Alunos/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+           var obj = _alunoService.FindById(id);
+            
+           ViewBag.IDModalidade = _modalidadeService.FindAll();
+            
+            
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit( AlunoViewModel alunoViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.IDModalidade = _modalidadeService.FindAll();
+                return View(alunoViewModel);
+            }
+
+            try
+            {
+                _alunoService.EditarAluno(alunoViewModel);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException)
+            {
+                return BadRequest();
+            }
+
+        }
+
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var aluno = await _context.Aluno.FindAsync(id);
-            if (aluno == null)
+            var obj = _alunoService.BuscarAlunoViewModel(id.Value);
+            if (id == null)
             {
                 return NotFound();
             }
-            return View(aluno);
+            return View(obj);
         }
 
-        // POST: Alunos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Cpf,Peso,Altura")] Aluno aluno)
-        {
-            if (id != aluno.Id)
-            {
-                return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(aluno);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AlunoExists(aluno.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(aluno);
-        }
-
-        // GET: Alunos/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var aluno = await _context.Aluno
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (aluno == null)
+            var obj = _alunoService.FindById(id.Value);
+            if (id == null)
             {
                 return NotFound();
             }
-
-            return View(aluno);
+            return View(obj);
         }
-
-        // POST: Alunos/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult Delete(int id)
         {
-            var aluno = await _context.Aluno.FindAsync(id);
-            _context.Aluno.Remove(aluno);
-            await _context.SaveChangesAsync();
+            _alunoService.RemoverAluno(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AlunoExists(int id)
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult ValidaCpf(string Cpf,int AlunoId=0)
+        
         {
-            return _context.Aluno.Any(e => e.Id == id);
+            var resultado =_utilidadesService.LocalizarCpf(Cpf,AlunoId);
+            return Json (resultado);
         }
+
+        
+
+
     }
 }

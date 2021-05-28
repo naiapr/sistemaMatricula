@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SistemaMatricula.Models.ViewModel.EstoqueViewModel>
+
+@{
+    ViewData["Title"] = "Estoque";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-default">Novo Cadastro</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="success">
+
+            
+            <th>
+                @Html.DisplayNameFor(model => model.Estoque.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estoque.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estoque.Quantidade)
+            </th>
+            
+
+            <th>
+                @Html.DisplayNameFor(model => model.NomeSetor)
+            </th>
+            <th></th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Preco)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NomeSetor)
+                </td>
+                
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EstoqueId">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.EstoqueId">Detalhar</a>
+                    <a asp-action="Delete" asp-route-id="@item.EstoqueId">Deletar</a>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+</table>

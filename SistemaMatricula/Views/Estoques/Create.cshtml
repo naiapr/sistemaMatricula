@@ -1,0 +1,56 @@
+﻿@model SistemaMatricula.Models.ViewModel.EstoqueViewModel
+@{
+    ViewData["Title"] = "Cadastrar";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<h4>Estoque</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "control-label" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Preco, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Preco, new { htmlAttributes = new { @class = "control-label" } })
+                @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "control-label" } })
+                @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
+            </div>
+            
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.IdSetor, htmlAttributes: new { @class = "control-label" })
+
+                @Html.DropDownListFor(model => model.IdSetor, new SelectList(ViewBag.SetorId, "Id", "Nome"), htmlAttributes: new { @class = "control-label" })
+                @Html.ValidationMessageFor(model => model.IdSetor, "", new { @class = "text-danger" })
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
