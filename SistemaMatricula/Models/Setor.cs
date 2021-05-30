@@ -10,7 +10,7 @@ namespace SistemaMatricula.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O nome da modalidade é obrigatório")]
+        [Required(ErrorMessage = "O nome do setor é obrigatório")]
         [Display(Name = "NOME")]
         [StringLength(30, ErrorMessage = "Limite máximo de 30 caracteres")]
         public string Nome { get; set; }

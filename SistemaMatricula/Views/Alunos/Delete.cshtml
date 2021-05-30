@@ -1,4 +1,4 @@
-﻿@model SistemaMatricula.Models.Aluno
+﻿@model SistemaMatricula.Models.ViewModel.AlunoViewModel
 @{
     ViewData["Title"] = "Deletar";
 }
@@ -12,10 +12,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model.NomeAluno)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Nome)
+            @Html.DisplayFor(model => model.NomeAluno)
 
         </dd>
         <dt>
@@ -27,7 +27,7 @@
         </dd>
     </dl>
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="AlunoId" />
         <input type="submit" value="Delete" class="btn btn-danger" />
         <a asp-action="Index">Voltar para a Lista</a>
     </form>

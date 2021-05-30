@@ -196,3 +196,4 @@ C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcorea
 C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcoreapp3.1\Razor\Views\Estoques\Index.cshtml.g.cs
 C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcoreapp3.1\Razor\Views\Estoques\Edit.cshtml.g.cs
 C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcoreapp3.1\Razor\Views\Estoques\Delete.cshtml.g.cs
+C:\Users\naiap\source\repos\SistemaMatricula\SistemaMatricula\obj\Debug\netcoreapp3.1\Razor\Views\Estoques\Details.cshtml.g.cs

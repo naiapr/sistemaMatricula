@@ -40,6 +40,7 @@ namespace SistemaMatricula.Services
             try
             {
                 Estoque estoque = new Estoque();
+                estoque.Id = estoqueViewModel.EstoqueId;
                 estoque.Nome = estoqueViewModel.Nome;
                 estoque.Preco = estoqueViewModel.Preco;
                 estoque.Quantidade = estoqueViewModel.Quantidade;
@@ -97,14 +98,5 @@ namespace SistemaMatricula.Services
 
       
 
-        public double TotalEstoque(double totalItem)
-        {
-            throw new NotImplementedException();
-        }
-
-        public double TotalItem(float preco, int quantidade)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

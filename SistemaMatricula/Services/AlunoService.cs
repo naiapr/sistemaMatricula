@@ -61,6 +61,7 @@ namespace SistemaMatricula.Services
             Aluno aluno = new Aluno();
             aluno = _context.Aluno.FirstOrDefault(x => x.Id == id);
             AlunoViewModel alunoViewModel = new AlunoViewModel();
+            alunoViewModel.AlunoId = aluno.Id;
             alunoViewModel.NomeAluno = aluno.Nome;
             alunoViewModel.Cpf = aluno.Cpf;
             alunoViewModel.Peso = aluno.Peso;
@@ -81,7 +82,8 @@ namespace SistemaMatricula.Services
             try
             {
                 Aluno aluno = new Aluno();
-                
+
+                aluno.Id = alunoViewModel.AlunoId;
                 aluno.Nome = alunoViewModel.NomeAluno;
                 aluno.Cpf = alunoViewModel.Cpf;
                 aluno.Peso = alunoViewModel.Peso;

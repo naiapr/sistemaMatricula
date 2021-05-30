@@ -15,9 +15,6 @@ namespace SistemaMatricula.Services
         public void EditarItem(EstoqueViewModel estoqueViewModel);
         public void RemoverItem(int Id);
 
-        public double TotalItem(float preco, int quantidade);
-
-        public double TotalEstoque(double totalItem);
 
     }
 }
